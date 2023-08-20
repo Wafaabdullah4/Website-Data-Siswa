@@ -106,7 +106,7 @@ class StudentController extends Controller
         $student = Student::all();
 
         $pdf = PDF::loadview('student.cetak', ['student' => $student]);
-        return $pdf->download('Data.pdf');
+        return $pdf->download('Data_siswa.pdf');
     }
 
     public function cari(Request $request)

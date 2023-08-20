@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StuderController;
 use App\Http\Controllers\TeacherController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +22,7 @@ use App\Http\Controllers\TeacherController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -60,11 +63,27 @@ Route::resource('/student', StudentController::class);
 Route::resource('/students', TeacherController::class);
 Route::resource('/studer', StuderController::class);
 
-// Membuat router mencetak data
+// Route kelas controller untuk data kelas
+Route::resource('/kelas', KelasController::class);
 
-// Membuat router mencetak data
+// Route guru controller untuk data guru
+Route::resource('/guru', GuruController::class);
 
 
+// Membuat router mencetak datasiswa dan cari data siswa
 Route::get('/cetak', [StudentController::class, 'cetak'])->name('student.cetak');
 
 Route::get('/search', [StudentController::class, 'cari'])->name('student.cari');
+
+//Membuat router cari data kelas
+Route::get('/search/kelas', [KelasController::class, 'cari'])->name('kelas.cari');
+
+//membuat router cari data guru
+Route::get('/search/guru', [guruController::class, 'cari'])->name('guru.cari');
+
+//Membuat router cetak data siswa untuk guru
+Route::get('/cari/siswa', [TeacherController::class, 'cari'])->name('students.cari');
+Route::get('/cetak/siswa', [TeacherController::class, 'cetak'])->name('students.cetak');
+
+//Membuat router cari data siswa untuk siswa
+Route::get('/cari/siswa/siswa', [StuderController::class, 'cari'])->name('studer.cari');
